@@ -99,9 +99,13 @@ var MarkdownEditor = React.createClass({
 		}, ('MDEditor_toolbarButton--' + formatKey));
 
 		var labelClass = isTextIcon ? 'MDEditor_toolbarButton_label-icon' : 'MDEditor_toolbarButton_label';
-
+		
+		//Button type will default to submit if not specified, 
+		// which can cause issues when this editor is embedded in a form.
+		var buttonType = this.getOptions().buttonType || 'button';
+		
 		return (
-			<button className={className} onClick={action} title={formatKey}>
+			<button className={className} onClick={action} title={formatKey} type={buttonType}>
 				{isTextIcon ? null : this.renderIcon(Icons[formatKey])}
 				<span className={labelClass}>{label}</span>
 			</button>
@@ -119,7 +123,8 @@ var MarkdownEditor = React.createClass({
 				{this.renderButton('oList', 'ol')}
 				{this.renderButton('uList', 'ul')}
 				{this.renderButton('quote', 'q')}
-				{/*this.renderButton('link', 'a')*/}
+				{this.renderButton('link', 'a')}
+				{this.renderButton('image', 'img')}
 			</div>
 		);
 	},
